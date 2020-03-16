@@ -20,18 +20,20 @@ app.get('/employees', (request, response) => {
     let employees = [];
     
     snapshot.forEach((doc) => {
-      console.log(doc.data());
       employees.push(doc.data());
     });
 
     response.send(employees);
   })
   .catch((err) => {
-    console.log('Error getting documents', err);
+    response.send({
+      'status': 'fail',
+      'message': err
+    });
   });
 });
 
-// -------------- Get specifici employee by ID in DB -------------- //
+// -------------- Get specific employee by ID in DB -------------- //
 
 app.get('/employee/:id', (request, response) => {
   db.collection('employees').doc(request.params.id).get()
@@ -50,7 +52,6 @@ app.get('/employee/:id', (request, response) => {
     }    
   })
   .catch((err) => {
-    console.log('Error getting employee.', err);
     response.send({
       'status': 'fail',
       'message': err
@@ -62,20 +63,18 @@ app.get('/employee/:id', (request, response) => {
 
 app.post('/employee', (request, response) => { 
   let employee = {
-    firstName:  request.param('firstName'),
-    lastName:   request.param('lastName'),
-    hourlyWage: Number(request.param('hourlyWage')),
-    birthDate:  request.param('birthDate')
+    firstName:  request.query.firstName,
+    lastName:   request.query.lastName,
+    hourlyWage: Number(request.query.hourlyWage),
+    birthDate:  request.query.birthDate
   };
   
   db.collection('employees').add(employee).then(ref => {
-    console.log('Added document with ID: ', ref.id);
     response.send({
       'status': 'success',
       'docId': ref.id
     });
   }).catch((err) => {
-    console.log('Error adding document', err);
     response.send({
       'status': 'fail',
       'message': err
@@ -83,6 +82,27 @@ app.post('/employee', (request, response) => {
   });
 });
 
+// -------------- Update existing employee in DB -------------- //
 
+app.put('/employee/:id', (request, response) => { 
+  let employee = {
+    firstName:  request.query.firstName,
+    lastName:   request.query.lastName,
+    hourlyWage: Number(request.query.hourlyWage),
+    birthDate:  request.query.birthDate
+  };
+
+  db.collection('employees').doc(request.params.id).update(employee).then(ref => {
+    response.send({
+      'status': 'success',
+      'docId': ref.id
+    });
+  }).catch((err) => {
+    response.send({
+      'status': 'fail',
+      'message': err
+    });
+  });
+});
 
 exports.app = functions.https.onRequest(app);
