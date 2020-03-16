@@ -12,6 +12,8 @@ admin.initializeApp({
 const db = admin.firestore();
 const app = express();
 
+// -------------- Get all employees in DB -------------- //
+
 app.get('/employees', (request, response) => {
   db.collection('employees').get()
   .then((snapshot) => {
@@ -29,15 +31,17 @@ app.get('/employees', (request, response) => {
   });
 });
 
-app.post('/employee', (request, response) => { 
-  let employee = {
-    firstName: 'Rob',
-    lastName: 'Paul',
-    hourlyWage: 343,
-    birthDate: '1973-03-19T00:00Z'
-  };
+// -------------- Add new employee to DB -------------- //
 
-  //response.send(employee);  
+app.post('/employee', (request, response) => { 
+  let params = request.body;
+
+  let employee = {
+    firstName:  request.param('firstName'),
+    lastName:   request.param('lastName'),
+    hourlyWage: Number(request.param('hourlyWage')),
+    birthDate:  request.param('birthDate')
+  };
   
   db.collection('employees').add(employee).then(ref => {
     console.log('Added document with ID: ', ref.id);
@@ -52,22 +56,6 @@ app.post('/employee', (request, response) => {
       'message': err
     });
   });
-  
-  
-  /*db.collection('employees').get()
-  .then((snapshot) => {
-    let employees = [];
-    
-    snapshot.forEach((doc) => {
-      console.log(doc.data());
-      employees.push(doc.data());
-    });
-
-    response.send(employees);
-  })
-  .catch((err) => {
-    console.log('Error getting documents', err);
-  });*/
 });
 
 
