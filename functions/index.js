@@ -34,8 +34,6 @@ app.get('/employees', (request, response) => {
 // -------------- Add new employee to DB -------------- //
 
 app.post('/employee', (request, response) => { 
-  let params = request.body;
-
   let employee = {
     firstName:  request.param('firstName'),
     lastName:   request.param('lastName'),
