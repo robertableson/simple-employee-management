@@ -105,4 +105,20 @@ app.put('/employee/:id', (request, response) => {
   });
 });
 
+// -------------- Delete existing employee in DB -------------- //
+
+app.delete('/employee/:id', (request, response) => { 
+
+  db.collection('employees').doc(request.params.id).delete().then(() => {
+    response.send({
+      'status': 'success'
+    });
+  }).catch((err) => {
+    response.send({
+      'status': 'fail',
+      'message': err
+    });
+  });
+});
+
 exports.app = functions.https.onRequest(app);
