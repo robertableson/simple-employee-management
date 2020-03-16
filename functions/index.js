@@ -31,6 +31,33 @@ app.get('/employees', (request, response) => {
   });
 });
 
+// -------------- Get specifici employee by ID in DB -------------- //
+
+app.get('/employee/:id', (request, response) => {
+  db.collection('employees').doc(request.params.id).get()
+  .then(doc => {
+    if (doc.exists) {
+      response.send({
+        'status': 'success',
+        'docData': doc.data()
+      });
+    } 
+    else {
+      response.send({
+        'status': 'fail',
+        'message': 'No such employee.'
+      });
+    }    
+  })
+  .catch((err) => {
+    console.log('Error getting employee.', err);
+    response.send({
+      'status': 'fail',
+      'message': err
+    });
+  });
+});
+
 // -------------- Add new employee to DB -------------- //
 
 app.post('/employee', (request, response) => { 

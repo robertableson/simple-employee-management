@@ -14,6 +14,10 @@
       {
         "source": "/employee",
         "function": "app"
+      },
+      {
+        "source": "/employee/**",
+        "function": "app"
       }
     ]
   },
