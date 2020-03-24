@@ -23,9 +23,31 @@
 </template>
 
 <script>
-export default {
-  name: 'EmployeeTable'
-}
+  //import axios from 'axios';
+
+
+  export default {
+    name: 'EmployeeTable',
+    data() {
+      return {
+        info: []
+      }
+    },
+    mounted () {
+      /*axios
+        .get('http://localhost:5000/employees')
+        .then(response => (this.info = response));*/
+      
+      this.info = [{
+        name: 'dudly',
+        pro: 'not'
+      }];
+      
+      console.log(this.info[0]);
+      
+    }
+    
+  }
 </script>
 
 <style>
