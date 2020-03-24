@@ -9,14 +9,14 @@
         <th>Hourly wage</th>
       </tr>
 
-      <tr v-for="(employee, i) in employees" v-bind:key="i">
+      <tr v-for="employee in employees" v-bind:key="employee.id">
         <td class="checkbox-col">
-          <input type="checkbox" :id="i"/>
+          <input type="checkbox" :id="employee.id"/>
         </td>
-        <td>{{ employee.firstName }}</td> 
-        <td>{{ employee.lastName }}</td> 
-        <td>{{ employee.birthDate }}</td>  
-        <td>{{ employee.hourlyWage }}</td>  
+        <td>{{ employee.data.firstName }}</td> 
+        <td>{{ employee.data.lastName }}</td> 
+        <td>{{ employee.data.birthDate }}</td>  
+        <td>{{ employee.data.hourlyWage }}</td>  
       </tr>
 
     </table>
@@ -47,14 +47,8 @@
         })
         .catch((error) => {
           console.log(error);
-        });
-
-
-    /*
-      axios
-        .get('http://localhost:5000/employees')
-        .then(response => (t = response.data)
-        .catch()*/
+        }
+      );
     }
   }
 </script>
