@@ -23,7 +23,12 @@ app.get('/employees', (request, response) => {
     let employees = [];
     
     snapshot.forEach((doc) => {
-      employees.push(doc.data());
+      employees.push(
+        {
+          id: doc.id,
+          data: doc.data()
+        }
+      );
     });
 
     response.send(employees);
