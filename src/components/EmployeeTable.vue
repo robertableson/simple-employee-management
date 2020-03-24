@@ -9,9 +9,9 @@
         <th>Hourly wage</th>
       </tr>
 
-      <tr v-for="employee in employees" v-bind:key="employee.firstName">
+      <tr v-for="(employee, i) in employees" v-bind:key="i">
         <td class="checkbox-col">
-          <input type="checkbox">
+          <input type="checkbox" :id="i"/>
         </td>
         <td>{{ employee.firstName }}</td> 
         <td>{{ employee.lastName }}</td> 

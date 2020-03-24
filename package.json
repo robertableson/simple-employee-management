@@ -10,8 +10,8 @@
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
-    "vue": "^2.6.11",
-    "vue-simple-alert": "^1.1.1"
+    "sweetalert2": "^9.10.6",
+    "vue": "^2.6.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.2.0",
