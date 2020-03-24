@@ -25,7 +25,7 @@ export default {
 }
 
 function deleteEmployeeButtonClicked() {
-  let selectedEmployees = getSelectedEmployees();
+  let selectedEmployees = getSelectedEmployees();  
 
   console.log(selectedEmployees);
   
@@ -39,6 +39,9 @@ function deleteEmployeeButtonClicked() {
     cancelButtonText: 'Cancel'
   }).then((result) => {
     if (result.value) {
+
+      //TODO: Send delete API
+
       Swal.fire(
         'Deleted!',
         'Employee deleted.',
@@ -48,9 +51,14 @@ function deleteEmployeeButtonClicked() {
   });
 
   function getSelectedEmployees() {
-    let selectedEmployees = document.querySelectorAll('input[type=checkbox]:checked');
+    let checkbox_selectedEmployees = document.querySelectorAll('input[type=checkbox]:checked');
+    let selectedEmployeeIds = [];
 
-    return selectedEmployees;
+    checkbox_selectedEmployees.forEach(function(checkbox_selectedEmployee) {
+      selectedEmployeeIds.push(checkbox_selectedEmployee.id);
+    });
+
+    return selectedEmployeeIds;
   }
 }
 </script>
