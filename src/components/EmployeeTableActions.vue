@@ -1,14 +1,26 @@
 <template>
   <div class="table-actions-template">
-    <a class="table-action table-action-add-new button button-add" href="#">Add new</a>
-    <a class="table-action table-action-edit button button-edit" href="#">Edit</a>
-    <a class="table-action table-action-add-delete button button-delete" href="#">Delete</a>
+    <a v-on:click="addNewEmployee" class="table-action table-action-add-new button button-add" href="#">Add new</a>
+    <a v-on:click="editEmployee" class="table-action table-action-edit button button-edit" href="#">Edit</a>
+    <a v-on:click="deleteEmployee" class="table-action table-action-add-delete button button-delete" href="#">Delete</a>
   </div>
 </template>
 
 <script>
+
 export default {
-  name: 'EmployeeTableActions'
+  name: 'EmployeeTableActions',
+  methods: {
+    addNewEmployee: function() {
+      alert('add new');
+    },
+    editEmployee: function() {
+      alert('edit');
+    },
+    deleteEmployee: function() {
+      alert('delete');
+    }
+  }
 }
 </script>
 
