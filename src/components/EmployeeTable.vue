@@ -23,30 +23,28 @@
 </template>
 
 <script>
-  //import axios from 'axios';
+  import axios from 'axios';
 
 
   export default {
     name: 'EmployeeTable',
     data() {
       return {
-        info: []
+        info: [
+          {
+            name: 'allo',
+            lname: 'allo2'
+          }
+        ]
       }
     },
     mounted () {
-      /*axios
+      var t = 0;
+      axios
         .get('http://localhost:5000/employees')
-        .then(response => (this.info = response));*/
-      
-      this.info = [{
-        name: 'dudly',
-        pro: 'not'
-      }];
-      
-      console.log(this.info[0]);
-      
+        .then(response => (t = response.data)
+        .catch()
     }
-    
   }
 </script>
 
