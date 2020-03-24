@@ -1,17 +1,20 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>Super simple employee management</h1>
+    <EmployeeTableActions/>
+    <EmployeeTable/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import EmployeeTableActions from './components/EmployeeTableActions.vue'
+import EmployeeTable from './components/EmployeeTable.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    EmployeeTableActions,
+    EmployeeTable
   }
 }
 </script>
