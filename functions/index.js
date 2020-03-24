@@ -1,6 +1,7 @@
 const functions = require('firebase-functions');
 const express = require('express');
 var admin = require("firebase-admin");
+var cors = require('cors')
 
 var serviceAccount = require("./employee-management-15524-firebase-adminsdk-krnni-5e09b0fc09.json");
 
@@ -11,6 +12,8 @@ admin.initializeApp({
 
 const db = admin.firestore();
 const app = express();
+
+app.use(cors());
 
 // -------------- Get all employees in DB -------------- //
 
