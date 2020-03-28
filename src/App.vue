@@ -24,15 +24,20 @@ export default {
     }
   },
   mounted () {
-    axios.get('http://localhost:5000/employees')
-      .then((response) => {
-        this.employees = response.data;
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      }
-    );
+    this.fetchAllEmployees();
+  },
+  methods: {
+    fetchAllEmployees() {
+      axios.get('http://localhost:5000/employees')
+        .then((response) => {
+          this.employees = response.data;
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        }
+      );
+    }
   }
 }
 </script>
