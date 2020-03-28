@@ -8,6 +8,7 @@
 
 <script>
 import axios from 'axios';
+import Swal from 'sweetalert2'
 
 import EmployeeTableActions from './components/EmployeeTableActions.vue'
 import EmployeeTable from './components/EmployeeTable.vue'
@@ -24,10 +25,10 @@ export default {
     }
   },
   mounted () {
-    this.fetchAllEmployees();
+    //this.firebase_fetchAllEmployees();
   },
   methods: {
-    fetchAllEmployees() {
+    firebase_fetchAllEmployees() {
       axios.get('http://localhost:5000/employees')
         .then((response) => {
           this.employees = response.data;
@@ -52,7 +53,47 @@ export default {
       }
     },
     addNewEmployee() {
-      console.log('Add new Clicked');
+      Swal.fire({
+        title: 'Add new',
+        showCancelButton: true,
+        confirmButtonText: 'Add',
+        cancelButtonText: 'Cancel',
+        customClass: {
+          container: 'container-class'
+        },
+        html: `
+          <form id="add-new-employee">
+            <label for="first-name">First name</label>
+            <br/>
+            <input id="first-name" type="text"/>
+
+            <br/>
+            <br/>
+
+            <label for="last-name">Last name</label>
+            <br/>
+            <input id="last-name" type="text"/>
+
+            <br/>
+            <br/>
+
+            <label for="birth-date">Birth date</label>
+            <br/>
+            <input id="birth-date" type="text"/>
+
+            <br/>
+            <br/>
+
+            <label for="hourly-wage">Hourly wage</label>
+            <br/>
+            <input id="hourly-wage" type="text"/>
+          </form>
+        `
+      }).then((result) => {
+        if (result.value) {
+          //TODO: Send add call
+        }
+      });
     },
     editSelectedEmployee(id) {
       console.log(id);      
@@ -84,5 +125,12 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.container-class form{
+  text-align: left;
+}
+.container-class form input{
+  width: 100%;
+  height: 20px;
 }
 </style>

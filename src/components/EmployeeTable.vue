@@ -6,7 +6,7 @@
         <th>First name</th>
         <th>Last name</th>
         <th>Birth date</th>
-        <th>Hourly salary</th>
+        <th>Hourly wage</th>
       </tr>
 
       <tr v-for="employee in employees" v-bind:key="employee.id">
