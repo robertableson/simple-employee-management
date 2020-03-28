@@ -6,7 +6,7 @@
         <th>First name</th>
         <th>Last name</th>
         <th>Birth date</th>
-        <th>Hourly wage</th>
+        <th>Hourly salary</th>
       </tr>
 
       <tr v-for="employee in employees" v-bind:key="employee.id">
@@ -24,31 +24,10 @@
 </template>
 
 <script>
-  import axios from 'axios';
-
-
   export default {
     name: 'EmployeeTable',
-    data() {
-      return {
-        employees: []
-      }
-    },
-    methods: {
-      updateTable: function() {
-
-      }
-    },
-    mounted () {
-      axios.get('http://localhost:5000/employees')
-        .then((response) => {
-          this.employees = response.data;
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        }
-      );
+    props: {
+      employees: Array
     }
   }
 </script>
