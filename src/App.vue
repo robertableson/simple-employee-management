@@ -25,7 +25,7 @@ export default {
     }
   },
   mounted () {
-    //this.firebase_fetchAllEmployees();
+    this.firebase_fetchAllEmployees();
   },
   methods: {
     firebase_fetchAllEmployees() {
@@ -55,11 +55,10 @@ export default {
     addNewEmployee() {
       Swal.fire({
         title: 'Add new',
-        showCancelButton: true,
-        confirmButtonText: 'Add',
-        cancelButtonText: 'Cancel',
+        showCancelButton: false,
+        showConfirmButton:false,
         customClass: {
-          container: 'container-class'
+          container: 'add-employee-modal'
         },
         html: `
           <form id="add-new-employee">
@@ -87,13 +86,42 @@ export default {
             <label for="hourly-wage">Hourly wage</label>
             <br/>
             <input id="hourly-wage" type="text"/>
+
+            <input type="submit" value="Add"/>
+            <button>Cancel</button>
           </form>
         `
       }).then((result) => {
         if (result.value) {
-          //TODO: Send add call
+          let newEmployee = this.getEmployeeToAddData();
+          let newEmployeeQueryString = 
+            'firstName=' + newEmployee.firstName +
+            '&lastName=' + newEmployee.lastName +
+            '&birthDate=' + newEmployee.birthDate +
+            '&hourlyWage=' + newEmployee.hourlyWage
+          ;
+
+          axios.post('http://localhost:5000/employee?' + newEmployeeQueryString)
+            .then((response) => {
+              console.log(response);
+              this.firebase_fetchAllEmployees();
+            })
+            .catch((error) => {
+              console.log(error);
+            }
+          );
         }
       });
+    },
+    getEmployeeToAddData() {
+      let newEmployee = {
+        firstName: 'test',
+        lastName: 'test',
+        birthDate: 'test',
+        hourlyWage: 11
+      };
+
+      return newEmployee;
     },
     editSelectedEmployee(id) {
       console.log(id);      
@@ -126,10 +154,10 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-.container-class form{
+.add-employee-modal form{
   text-align: left;
 }
-.container-class form input{
+.add-employee-modal form input[type="text"]{
   width: 100%;
   height: 20px;
 }
