@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1>Super simple employee management</h1>
-    <EmployeeTableActions/>
+    <EmployeeTableActions v-on:actionButtonClicked="actionButtonClicked"/>
     <EmployeeTable v-bind:employees="employees"/>
   </div>
 </template>
@@ -37,6 +37,40 @@ export default {
           console.log(error);
         }
       );
+    },
+    actionButtonClicked(action) {
+      if(action == 'add') {
+        this.addNewEmployee();
+      }
+      else if(action == 'edit') {
+        let id = this.getSelectedEmployeeIds();
+        this.editSelectedEmployee(id);
+      }
+      else if(action == 'delete') {
+        let ids = this.getSelectedEmployeeIds();
+        this.deleteSelectedEmployees(ids);
+      }
+    },
+    addNewEmployee() {
+      console.log('Add new Clicked');
+    },
+    editSelectedEmployee(id) {
+      console.log(id);      
+      console.log('Edit Clicked');
+    },
+    deleteSelectedEmployees(ids) {
+      console.log(ids);
+      console.log('delete Clicked');
+    },
+    getSelectedEmployeeIds() {
+      let checkbox_selectedEmployees = document.querySelectorAll('input[type=checkbox]:checked');
+      let selectedEmployeeIds = [];
+
+      checkbox_selectedEmployees.forEach(function(checkbox_selectedEmployee) {
+        selectedEmployeeIds.push(checkbox_selectedEmployee.id);
+      });
+
+      return selectedEmployeeIds;
     }
   }
 }

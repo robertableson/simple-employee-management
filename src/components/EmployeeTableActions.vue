@@ -1,30 +1,33 @@
 <template>
   <div class="table-actions-template">
     <a v-on:click="addNewEmployee" class="table-action table-action-add-new button button-add" href="#">Add new</a>
-    <a v-on:click="editEmployee" class="table-action table-action-edit button button-edit" href="#">Edit</a>
-    <a v-on:click="deleteEmployee" class="table-action table-action-add-delete button button-delete" href="#">Delete</a>
+    <a v-on:click="editSelectedEmployee" class="table-action table-action-edit button button-edit" href="#">Edit</a>
+    <a v-on:click="deleteSelectedEmployees" class="table-action table-action-add-delete button button-delete" href="#">Delete</a>
   </div>
 </template>
 
 <script>
-import Swal from 'sweetalert2'
+//import Swal from 'sweetalert2'
 
 export default {
   name: 'EmployeeTableActions',
   methods: {
-    addNewEmployee: function() {
-      alert('add new');
+    emitActionButtonClicked(action) {
+      this.$emit('actionButtonClicked', action)
     },
-    editEmployee: function() {
-      alert('edit');
+    addNewEmployee() {
+      this.emitActionButtonClicked('add');
     },
-    deleteEmployee: function() {
-      deleteEmployeeButtonClicked();
+    editSelectedEmployee() {
+      this.emitActionButtonClicked('edit');
+    },
+    deleteSelectedEmployees() {
+      this.emitActionButtonClicked('delete');
     }
   }
 }
 
-function deleteEmployeeButtonClicked() {
+/*function deleteEmployeeButtonClicked() {
   let selectedEmployees = getSelectedEmployees();  
 
   console.log(selectedEmployees);
@@ -60,7 +63,7 @@ function deleteEmployeeButtonClicked() {
 
     return selectedEmployeeIds;
   }
-}
+}*/
 </script>
 
 <style scoped>
