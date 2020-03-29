@@ -238,8 +238,25 @@ export default {
 
     },
     deleteSelectedEmployees(ids) {
-      console.log(ids);
-      console.log('delete Clicked');
+      Swal.fire({
+        title: 'Delete selected employees?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'Delete'
+      }).then((result) => {
+        if (result.value) {
+          axios.delete('http://localhost:5000/employee/' + ids)
+            .then((response) => {
+              console.log(response);
+              this.firebase_fetchAllEmployees();
+            })
+            .catch((error) => {
+              console.log(error);
+            }
+          );
+        }
+      });
     },
     getSelectedEmployeeIds() {
       let checkbox_selectedEmployees = document.querySelectorAll('input[type=checkbox]:checked');
